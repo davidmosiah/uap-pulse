@@ -1,6 +1,13 @@
 {
   "headers": [
     {
+      "source": "/",
+      "headers": [
+        { "key": "Link", "value": "</llms.txt>; rel=\"alternate\"; type=\"text/plain\", </sitemap.xml>; rel=\"sitemap\", </.well-known/mcp-server.json>; rel=\"service-desc\"; type=\"application/json\", </sightings.json>; rel=\"describedby\"; type=\"application/json\"" },
+        { "key": "X-Robots-Tag", "value": "all" }
+      ]
+    },
+    {
       "source": "/sightings.json",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "*" },
