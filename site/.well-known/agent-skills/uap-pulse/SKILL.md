@@ -1,6 +1,6 @@
 # Skill: Query declassified Pentagon UAP records (uap-pulse)
 
-Search and map the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026) — 161 public-domain government records spanning 1944–2026.
+Search and map the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026) — 222 public-domain government records spanning 1944–2026.
 
 ## Install (MCP server, no auth)
 
@@ -26,8 +26,8 @@ Add to any MCP client:
 ## Data
 
 - Raw JSON (CORS-open): https://uap-pulse.vercel.app/sightings.json
-- Source: war.gov PURSUE Release 1 — U.S. public domain (17 U.S.C. § 105)
-- 161 records · 114 geolocated · agencies: Dept. of War (82), FBI (57), NASA (15), State (7)
+- Source: war.gov PURSUE Releases 1 & 2 — U.S. public domain (17 U.S.C. § 105)
+- 222 records · 170 geolocated · agencies: War (131), FBI (57), NASA (22), State (7), CIA (1), ODNI (1), DOE (3)
 
 ## Links
 
