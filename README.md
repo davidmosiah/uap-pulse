@@ -2,7 +2,7 @@
 
 **An MCP server (and a live map) for the Pentagon's declassified UAP files.**
 
-On **May 8, 2026**, the U.S. Department of War published the first **PURSUE Release** on [war.gov/UFO](https://www.war.gov/UFO/) — **222 declassified UAP/UFO records** spanning **1944–2026**, across seven federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). `uap-pulse` puts that release at your AI agent's fingertips — and on a map.
+On **May 8, 2026**, the U.S. Department of War published the first **PURSUE Release** on [war.gov/UFO](https://www.war.gov/UFO/) — **238 declassified UAP/UFO records** spanning **1944–2026**, across seven federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). `uap-pulse` puts that release at your AI agent's fingertips — and on a map.
 
 > **Government records only.** This project uses *only* public-domain U.S. federal records (17 U.S.C. § 105). No scraped third-party databases, no civilian data behind a ToS. Not affiliated with or endorsed by the U.S. government.
 
@@ -12,7 +12,7 @@ On **May 8, 2026**, the U.S. Department of War published the first **PURSUE Rele
 
 ## Use it as an MCP server
 
-Your agent can search 222 declassified files by location, agency, era, or type — and pull the direct `war.gov` source link for each.
+Your agent can search 238 declassified files by location, agency, era, or type — and pull the direct `war.gov` source link for each.
 
 **Claude Desktop / any MCP client** — add to your config:
 
@@ -59,7 +59,7 @@ Or deploy the `site/` folder to Vercel (static, no build step).
 
 - **Source:** [war.gov/UFO](https://www.war.gov/UFO/) — PURSUE Releases 1 & 2 (2026-05-08, 2026-05-22).
 - **License of the data:** Public domain (U.S. federal government work, 17 U.S.C. § 105).
-- **Coverage:** 222 records · 170 geolocated · 1944–2026 · agencies: War (131), FBI (57), NASA (22), State (7), CIA (1), ODNI (1), DOE (3).
+- **Coverage:** 238 records · 186 geolocated · 1944–2026 · agencies: War (131), FBI (57), NASA (22), State (7), CIA (1), ODNI (1), DOE (3).
 - Record index mirrored by the community ([vfp2/pursue-ufo-files](https://github.com/vfp2/pursue-ufo-files)); coordinates are representative centroids for each named location, geocoded in [`scripts/build_data.py`](scripts/build_data.py).
 
 Rebuild the dataset: `npm run data` (or `python3 scripts/build_data.py`).

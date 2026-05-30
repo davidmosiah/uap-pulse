@@ -2,9 +2,9 @@
   "$schema": "https://modelcontextprotocol.io/schema/server-card/draft",
   "serverInfo": {
     "name": "uap-pulse",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "title": "UAP Pulse — declassified Pentagon UAP files",
-    "description": "Search and map 222 declassified U.S. government UAP/UFO records (PURSUE Release, war.gov, 1944–2026). Public domain, no auth.",
+    "description": "Search and map 238 declassified U.S. government UAP/UFO records (PURSUE Release, war.gov, 1944–2026). Public domain, no auth.",
     "websiteUrl": "https://uap-pulse.vercel.app",
     "repositoryUrl": "https://github.com/davidmosiah/uap-pulse"
   },

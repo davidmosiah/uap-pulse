@@ -102,8 +102,31 @@ def main():
             "description": g("Description Blurb"),
             "link": link,
         })
+    # ---- merge curated INTERNATIONAL official-government cases ----
+    INTL_COLOR = "#b6ff3c"
+    wpath = os.path.join(HERE, "world_cases.json")
+    world_n = 0
+    if os.path.exists(wpath):
+        import json as _json
+        wc = _json.load(open(wpath, encoding="utf-8")).get("cases", [])
+        for j, c in enumerate(wc):
+            iso, year = norm_date(str(c.get("date", "")))
+            out.append({
+                "id": f"world-{j+1:03d}",
+                "title": f"{c.get('flag','')} {c.get('title','')}".strip(),
+                "agency": f"{c.get('country')} — {c.get('agency')}",
+                "agency_color": INTL_COLOR,
+                "type": c.get("type", "DOC"),
+                "release": "International (official government archives)",
+                "date": iso, "year": year, "era": era(year),
+                "location": c.get("location"), "lat": c.get("lat"), "lng": c.get("lng"),
+                "offworld": False, "country": c.get("country"), "flag": c.get("flag"),
+                "description": c.get("description", ""), "link": c.get("link"),
+            })
+        world_n = len(wc)
+
     meta = {
-        "source": "war.gov/UFO — PURSUE Releases 1 & 2 (US Dept. of War, 2026-05-08 & 2026-05-22)",
+        "source": "war.gov/UFO — PURSUE Releases 1 & 2 (US Dept. of War, 2026-05-08 & 2026-05-22) + curated international official-government cases",
         "license": "Public domain (17 U.S.C. 105 — US federal government work)",
         "record_count": len(out),
         "with_coords": sum(1 for x in out if x["lat"] is not None),

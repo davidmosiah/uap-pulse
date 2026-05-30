@@ -4,16 +4,16 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>PURSUE · Declassified UAP Files — uap-pulse</title>
-<meta name="description" content="An interactive map of the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). 222 government records, 1944–2026. Open data, open MCP." />
+<meta name="description" content="An interactive map of the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). 238 official government UAP records (US + 12 nations), 1944–2026. Open data, open MCP." />
 <meta property="og:title" content="PURSUE — The Pentagon's Declassified UAP Files" />
-<meta property="og:description" content="222 declassified government UAP records on a live map. Your AI agent can query them too — open MCP." />
+<meta property="og:description" content="238 official UAP records (US Pentagon + 12 nations) on a live map. Your AI agent can query them too — open MCP." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://uap-pulse.vercel.app/" />
 <meta property="og:image" content="https://uap-pulse.vercel.app/og.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@delx369" />
 <meta name="twitter:title" content="PURSUE — The Pentagon's Declassified UAP Files" />
-<meta name="twitter:description" content="222 declassified government UAP records, mapped. Queryable by any AI agent via an open MCP server." />
+<meta name="twitter:description" content="238 official government UAP records (US + 12 nations), mapped. Queryable by any AI agent via an open MCP server." />
 <meta name="twitter:image" content="https://uap-pulse.vercel.app/og.png" />
 <link rel="canonical" href="https://uap-pulse.vercel.app/" />
 <script type="application/ld+json">
@@ -24,13 +24,13 @@
       "@type": "WebSite",
       "name": "uap-pulse — PURSUE Declassified UAP Files",
       "url": "https://uap-pulse.vercel.app/",
-      "description": "An interactive 3D map of the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). 222 public-domain government records, 1944-2026.",
+      "description": "An interactive 3D map of the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). 238 official government UAP records (US PURSUE + 12 nations), 1944-2026.",
       "author": { "@type": "Person", "name": "David Mosiah", "sameAs": "https://x.com/delx369" }
     },
     {
       "@type": "Dataset",
       "name": "PURSUE Releases 1 & 2 — declassified U.S. government UAP records",
-      "description": "222 declassified UAP/UFO records released by the U.S. Department of War on war.gov (2026-05-08), spanning 1944-2026 across seven U.S. federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). Includes incident date, location, agency, file type and a direct source link.",
+      "description": "238 official government UAP records: the U.S. Pentagon PURSUE releases (war.gov, 2026) across seven agencies, plus 16 curated official cases from 12 other nations (Brazil/FAB, France/GEIPAN, UK/MoD, Chile/CEFAA, Belgium, Spain, Mexico, Iran, Canada, New Zealand, USSR, Uruguay). Includes incident date, location, agency, file type and a direct source link.",
       "url": "https://uap-pulse.vercel.app/",
       "sameAs": "https://www.war.gov/UFO/",
       "datePublished": "2026-05-08",
@@ -50,7 +50,7 @@
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Node.js",
       "description": "An MCP (Model Context Protocol) server that lets AI agents query the PURSUE declassified UAP records by location, agency, era and type. Install with: npx -y uap-pulse",
-      "softwareVersion": "0.3.0",
+      "softwareVersion": "0.3.1",
       "downloadUrl": "https://www.npmjs.com/package/uap-pulse",
       "url": "https://github.com/davidmosiah/uap-pulse",
       "license": "https://opensource.org/licenses/MIT",
@@ -157,17 +157,17 @@
 </style>
 </head>
 <body>
-  <div id="globe" role="img" aria-label="Interactive 3D globe mapping 222 declassified Pentagon UAP/UFO records (PURSUE Release, 1944–2026), with pulsing points colored by the originating agency."></div>
+  <div id="globe" role="img" aria-label="Interactive 3D globe mapping 238 declassified Pentagon UAP/UFO records (PURSUE Release, 1944–2026), with pulsing points colored by the originating agency."></div>
   <noscript>
     <article style="max-width:760px;margin:40px auto;padding:24px;color:#d6e6ff;font-family:monospace;line-height:1.6">
       <h1>PURSUE — The Pentagon's Declassified UAP Files</h1>
       <p>An interactive map and an <strong>MCP server</strong> over the U.S. Department of War's
-      <a href="https://www.war.gov/UFO/">PURSUE Releases 1 &amp; 2</a> (war.gov, May 2026): <strong>222 declassified
+      <a href="https://www.war.gov/UFO/">PURSUE Releases 1 &amp; 2</a> (war.gov, May 2026): <strong>238 declassified
       UAP/UFO records</strong> spanning <strong>1944–2026</strong>. All data is U.S. public domain
       (17 U.S.C. § 105) — no scraped third-party data.</p>
       <h2>The dataset</h2>
       <ul>
-        <li>222 records · 170 geolocated · 15 off-world (Moon / orbit / cislunar)</li>
+        <li>238 records · 186 geolocated · 15 off-world (Moon / orbit / cislunar)</li>
         <li>Department of War — 131 · FBI — 57 · NASA — 22 · Department of State — 7 · CIA — 1 · ODNI — 1 · Department of Energy — 3</li>
         <li>File types: 122 PDFs, 78 videos, 14 images, 8 audio — each linking to the original on war.gov</li>
         <li>Hotspots: CENTCOM (32), Western United States (26), Arabian Gulf (12), Syria (10), Iraq (8)</li>
@@ -190,11 +190,11 @@
   <header class="ui top">
     <span class="stamp">DECLASSIFIED</span>
     <h1>pursue</h1>
-    <div class="sub">The Pentagon's declassified <b>UAP files</b>, mapped.<br>
-      <b>222</b> records · <b>7 agencies</b> · <b>1944–2026</b> · Releases 1 &amp; 2 on <b>war.gov</b>.</div>
+    <div class="sub">Official government <b>UAP records</b>, mapped.<br>
+      <b>238</b> records · 🇺🇸 Pentagon PURSUE + <b>12 nations</b> · <b>1944–2026</b>.</div>
   </header>
 
-  <div class="ui search"><input id="q" type="search" placeholder="search 222 files — place, agency, words…" autocomplete="off" aria-label="Search the declassified UAP records" /></div>
+  <div class="ui search"><input id="q" type="search" placeholder="search 238 files — place, country, agency…" autocomplete="off" aria-label="Search the declassified UAP records" /></div>
 
   <div class="ui legend" id="legend"></div>
 
@@ -203,9 +203,9 @@
   <div class="ui offworld" id="offworld"></div>
 
   <div class="ui bar">
-    <span><span class="n" id="cRecords">222</span><span class="k">records</span></span>
+    <span><span class="n" id="cRecords">238</span><span class="k">records</span></span>
     <span class="sep"></span>
-    <span><span class="n">7</span><span class="k">agencies</span></span>
+    <span><span class="n">13</span><span class="k">nations</span></span>
     <span class="sep"></span>
     <span><span class="n" id="cLoc">—</span><span class="k">hotspots</span></span>
     <span class="sep"></span>
@@ -245,6 +245,7 @@ function aggregate(filterFn){
     if (s.lat==null || s.offworld) continue;
     if (!filterFn(s)) continue;
     if (hiddenAgency.has(s.agency)) continue;
+    if (hiddenAgency.has("__INTL__") && !COLORS[s.agency]) continue;
     if (searchQuery && !(`${s.title} ${s.description} ${s.location||''} ${s.agency}`.toLowerCase().includes(searchQuery))) continue;
     const k = s.location;
     if (!groups.has(k)) groups.set(k,{location:k,lat:s.lat,lng:s.lng,records:[],agencies:{}});
@@ -254,7 +255,8 @@ function aggregate(filterFn){
   }
   return [...groups.values()].map(g=>{
     const dom = Object.entries(g.agencies).sort((a,b)=>b[1]-a[1])[0][0];
-    return {...g, count:g.records.length, color:COLORS[dom]||"#9fb4d6"};
+    const domRec = g.records.find(r=>r.agency===dom);
+    return {...g, count:g.records.length, color:(domRec&&domRec.agency_color)||COLORS[dom]||"#9fb4d6"};
   });
 }
 
@@ -300,7 +302,8 @@ function esc(t){return (t||'').replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':
 function buildLegend(){
   const el=document.getElementById('legend');
   el.innerHTML = Object.entries(COLORS).map(([a,c])=>
-    `<div class="row on" data-a="${a}"><span>${short(a)}</span><span class="dot" style="color:${c};background:${c}"></span></div>`).join('');
+    `<div class="row on" data-a="${a}"><span>${short(a)}</span><span class="dot" style="color:${c};background:${c}"></span></div>`).join('')
+    + `<div class="row on" data-a="__INTL__"><span>🌍 Int'l (12 nations)</span><span class="dot" style="color:#b6ff3c;background:#b6ff3c"></span></div>`;
   el.querySelectorAll('.row').forEach(r=>r.onclick=()=>{
     const a=r.dataset.a;
     if(hiddenAgency.has(a)){hiddenAgency.delete(a);r.classList.add('on');}

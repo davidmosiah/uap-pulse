@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "uap-pulse data API",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "Read-only access to the declassified PURSUE UAP dataset (US public domain). For rich querying, use the MCP server: npx -y uap-pulse.",
     "license": { "name": "US public domain (17 USC 105)", "url": "https://www.usa.gov/government-works" }
   },
@@ -11,7 +11,7 @@
     "/sightings.json": {
       "get": {
         "operationId": "getSightings",
-        "summary": "The full PURSUE UAP dataset (222 records + metadata).",
+        "summary": "The full PURSUE UAP dataset (238 records + metadata).",
         "responses": {
           "200": {
             "description": "Dataset",

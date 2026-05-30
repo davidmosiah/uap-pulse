@@ -1,6 +1,6 @@
 # uap-pulse
 
-> An MCP server and an interactive 3D map over the U.S. Pentagon's **declassified UAP/UFO files** — the PURSUE Release (war.gov, 2026-05-08). 222 official government records spanning 1944–2026, across seven U.S. federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). All data is U.S. public domain (17 U.S.C. § 105). No scraped third-party data.
+> An MCP server and an interactive 3D map over the U.S. Pentagon's **declassified UAP/UFO files** — the PURSUE Release (war.gov, 2026-05-08). 238 official government records spanning 1944–2026, across seven U.S. federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). All data is U.S. public domain (17 U.S.C. § 105). No scraped third-party data.
 
 ## Use it as an MCP server (for AI agents)
 
@@ -36,4 +36,4 @@ Add to any MCP client (e.g. Claude Desktop):
 
 ## Dataset
 
-222 records · 170 geolocated · 15 off-world (Moon/orbit/cislunar) · agencies: Department of War (131), FBI (57), NASA (22), Department of State (7), CIA (1), ODNI (1), Department of Energy (3) · years 1944–2026 · source: war.gov PURSUE Releases 1 & 2 · license: U.S. public domain.
+238 records · 186 geolocated · 15 off-world (Moon/orbit/cislunar) · agencies: Department of War (131), FBI (57), NASA (22), Department of State (7), CIA (1), ODNI (1), Department of Energy (3) · years 1944–2026 · plus 16 curated international official cases (12 nations) · source: war.gov PURSUE Releases 1 & 2 + national archives · license: U.S. public domain.

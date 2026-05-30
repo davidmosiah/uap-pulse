@@ -5,10 +5,10 @@ export const config = { matcher: "/" };
 
 const MD = `# PURSUE — The Pentagon's Declassified UAP Files
 
-An interactive 3D map and an MCP server over the U.S. Department of War's PURSUE Releases 1 & 2 (war.gov, May 2026): 222 declassified UAP/UFO records spanning 1944-2026, across seven U.S. federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). All data is U.S. public domain (17 U.S.C. 105).
+An interactive 3D map and an MCP server over the U.S. Department of War's PURSUE Releases 1 & 2 (war.gov, May 2026): 238 declassified UAP/UFO records spanning 1944-2026, across seven U.S. federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). All data is U.S. public domain (17 U.S.C. 105).
 
 ## Dataset
-- 222 records, 170 geolocated, 15 off-world (Moon/orbit/cislunar)
+- 238 records, 186 geolocated, 15 off-world (Moon/orbit/cislunar)
 - War 131, FBI 57, NASA 22, State 7, CIA 1, ODNI 1, DOE 3
 - 122 PDFs, 78 videos, 14 images, 8 audio (each links to war.gov)
 

@@ -63,7 +63,7 @@ function brief(s: Sighting) {
 
 const json = (data: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] });
 
-const server = new McpServer({ name: "uap-pulse", version: "0.3.0" });
+const server = new McpServer({ name: "uap-pulse", version: "0.3.1" });
 
 server.tool(
   "search_sightings",
@@ -71,11 +71,11 @@ server.tool(
   {
     query: z.string().optional().describe("free text matched against title, description and location"),
     agency: z.string().optional().describe("exact agency name, e.g. 'Department of War', 'FBI', 'NASA', 'Department of State', 'Central Intelligence Agency', 'Department of Energy', 'Office of the Director of National Intelligence'"),
-    type: z.enum(["PDF", "VID", "IMG", "AUD"]).optional().describe("PDF document, VID video, IMG image, or AUD audio"),
+    type: z.enum(["PDF", "VID", "IMG", "AUD", "DOC"]).optional().describe("PDF document, VID video, IMG image, AUD audio, or DOC (international official record)"),
     year_start: z.number().int().optional(),
     year_end: z.number().int().optional(),
     location: z.string().optional().describe("substring match on the incident location, e.g. 'Iraq', 'Moon'"),
-    limit: z.number().int().min(1).max(222).optional().default(25),
+    limit: z.number().int().min(1).max(238).optional().default(25),
   },
   async ({ query, agency, type, year_start, year_end, location, limit }) => {
     const q = query?.toLowerCase();
@@ -102,7 +102,7 @@ server.tool(
     latitude: z.number().min(-90).max(90),
     longitude: z.number().min(-180).max(180),
     radius_km: z.number().min(1).max(20000).optional().default(1000),
-    limit: z.number().int().min(1).max(222).optional().default(25),
+    limit: z.number().int().min(1).max(238).optional().default(25),
   },
   async ({ latitude, longitude, radius_km, limit }) => {
     const hits = ALL.filter((s) => s.lat != null && s.lng != null && !s.offworld)
@@ -121,7 +121,7 @@ server.tool(
   { id: z.string().describe("record id, e.g. 'pursue-042'") },
   async ({ id }) => {
     const s = ALL.find((x) => x.id === id.toLowerCase());
-    if (!s) return json({ error: `no record with id '${id}'`, hint: "ids look like 'pursue-001'..'pursue-222'" });
+    if (!s) return json({ error: `no record with id '${id}'`, hint: "ids look like 'pursue-001'..'pursue-222' or 'world-001'..." });
     return json(s);
   }
 );
@@ -197,7 +197,7 @@ server.tool(
   "Relevance-ranked free-text search across every record's title, location and description. Use this for thematic digs ('FLIR', 'orb', 'triangular', 'heat source', 'radar').",
   {
     query: z.string().describe("text to search for across all fields"),
-    limit: z.number().int().min(1).max(222).optional().default(20),
+    limit: z.number().int().min(1).max(238).optional().default(20),
   },
   async ({ query, limit }) => {
     const q = query.toLowerCase();
@@ -269,4 +269,4 @@ server.tool(
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error("uap-pulse MCP server v0.2 running (stdio) — 222 declassified PURSUE records (Releases 1+2), 9 tools.");
+console.error("uap-pulse MCP server v0.2 running (stdio) — 238 official UAP records (US PURSUE + 12 nations), 9 tools.");
