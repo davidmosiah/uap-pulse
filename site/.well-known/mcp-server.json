@@ -1,0 +1,32 @@
+{
+  "name": "uap-pulse",
+  "description": "MCP server over the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov). 161 public-domain government records, 1944-2026, with an interactive 3D map.",
+  "version": "0.2.0",
+  "homepage": "https://uap-pulse.vercel.app",
+  "repository": "https://github.com/davidmosiah/uap-pulse",
+  "license": "MIT",
+  "data_license": "U.S. public domain (17 U.S.C. 105)",
+  "install": {
+    "npm": "uap-pulse",
+    "command": "npx -y uap-pulse",
+    "transport": "stdio"
+  },
+  "tools": [
+    { "name": "search_sightings", "description": "Search records by free text, agency, file type, year range, or location." },
+    { "name": "search_nearby", "description": "Incidents within a radius (km) of a latitude/longitude, sorted by distance." },
+    { "name": "get_sighting", "description": "Full record for one file id, including the war.gov source link." },
+    { "name": "full_text_search", "description": "Relevance-ranked substring search across all descriptions, titles and locations." },
+    { "name": "notable_cases", "description": "Curated, historically significant cases with context." },
+    { "name": "hotspots", "description": "Locations ranked by number of declassified records." },
+    { "name": "stats", "description": "Totals and breakdowns by agency, file type, and era." },
+    { "name": "timeline", "description": "Record counts per decade or year." },
+    { "name": "timeline_data", "description": "Per-period records with coordinates for animated timelines." }
+  ],
+  "dataset": {
+    "records": 161,
+    "geolocated": 114,
+    "years": "1944-2026",
+    "agencies": ["Department of War", "FBI", "NASA", "Department of State"],
+    "source": "war.gov PURSUE Release 1 (2026-05-08)"
+  }
+}

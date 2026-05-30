@@ -1,0 +1,39 @@
+# uap-pulse
+
+> An MCP server and an interactive 3D map over the U.S. Pentagon's **declassified UAP/UFO files** — the PURSUE Release (war.gov, 2026-05-08). 161 official government records spanning 1944–2026, across the Department of War, FBI, NASA, and the Department of State. All data is U.S. public domain (17 U.S.C. § 105). No scraped third-party data.
+
+## Use it as an MCP server (for AI agents)
+
+Install (no auth, no API key, data bundled):
+
+```
+npx -y uap-pulse
+```
+
+Add to any MCP client (e.g. Claude Desktop):
+
+```json
+{ "mcpServers": { "uap-pulse": { "command": "npx", "args": ["-y", "uap-pulse"] } } }
+```
+
+## Tools
+
+- `search_sightings` — search by free text, agency, file type, year range, or location
+- `search_nearby` — incidents within a radius (km) of a lat/lng, by distance
+- `get_sighting` — full record for one file id, with the war.gov source link
+- `full_text_search` — relevance-ranked substring search across all descriptions
+- `notable_cases` — curated, historically significant cases with context
+- `hotspots` — the locations with the most declassified records
+- `stats` — totals and breakdowns by agency, type, and era
+- `timeline` / `timeline_data` — records per decade/year for charts and animations
+
+## Links
+
+- Live map: https://uap-pulse.vercel.app
+- Source (GitHub): https://github.com/davidmosiah/uap-pulse
+- Package (npm): https://www.npmjs.com/package/uap-pulse
+- Raw data (JSON, CORS-open): https://uap-pulse.vercel.app/sightings.json
+
+## Dataset
+
+161 records · 114 geolocated · 10 off-world (Moon/orbit) · agencies: Department of War (82), FBI (57), NASA (15), Department of State (7) · years 1944–2026 · source: war.gov PURSUE Release 1 · license: U.S. public domain.

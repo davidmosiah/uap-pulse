@@ -63,7 +63,7 @@ function brief(s: Sighting) {
 
 const json = (data: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] });
 
-const server = new McpServer({ name: "uap-pulse", version: "0.1.0" });
+const server = new McpServer({ name: "uap-pulse", version: "0.2.0" });
 
 server.tool(
   "search_sightings",
@@ -192,6 +192,81 @@ server.tool(
   }
 );
 
+server.tool(
+  "full_text_search",
+  "Relevance-ranked free-text search across every record's title, location and description. Use this for thematic digs ('FLIR', 'orb', 'triangular', 'heat source', 'radar').",
+  {
+    query: z.string().describe("text to search for across all fields"),
+    limit: z.number().int().min(1).max(161).optional().default(20),
+  },
+  async ({ query, limit }) => {
+    const q = query.toLowerCase();
+    const scored = ALL.map((s) => {
+      let score = 0;
+      if ((s.title ?? "").toLowerCase().includes(q)) score += 3;
+      if ((s.location ?? "").toLowerCase().includes(q)) score += 2;
+      if ((s.description ?? "").toLowerCase().includes(q)) score += 1;
+      return { s, score };
+    }).filter((x) => x.score > 0).sort((a, b) => b.score - a.score).slice(0, limit);
+    return json({
+      query,
+      total_matches: scored.length,
+      results: scored.map(({ s, score }) => {
+        const d = (s.description ?? "");
+        const i = d.toLowerCase().indexOf(q);
+        const snippet = i >= 0 ? d.slice(Math.max(0, i - 60), i + 100) : d.slice(0, 140);
+        return { ...brief(s), relevance: score, snippet: snippet.trim() };
+      }),
+    });
+  }
+);
+
+const NOTABLE: { key: string; label: string; why: string; match: (s: Sighting) => boolean }[] = [
+  { key: "foo-fighters", label: "WWII 'Foo Fighters' (1944–45)", why: "Allied aircrews over Europe reported glowing orbs tailing their planes; the SHAEF files are the earliest records in the release.", match: (s) => /foo|shaef|1944|1945|german_armamen/i.test(`${s.title} ${s.description}`) || (s.year != null && s.year <= 1945) },
+  { key: "gemini-7", label: "Gemini 7 (NASA, 1965)", why: "Astronaut transcript + audio describing objects in orbit — one of the off-world records.", match: (s) => /gemini/i.test(`${s.title} ${s.description}`) },
+  { key: "apollo", label: "Apollo crew debriefings (NASA)", why: "Apollo 11/12/17 crew debriefings and a photograph of a triangular formation in the lunar sky.", match: (s) => /apollo/i.test(`${s.title} ${s.description}`) },
+  { key: "maury-island", label: "Maury Island (FBI, 1947)", why: "Early FBI investigation with claimed physical-evidence photographs.", match: (s) => /maury\s*island/i.test(`${s.title} ${s.description}`) },
+  { key: "presidential-1963", label: "1963 presidential UAP memo (State Dept.)", why: "A 1963 memo to the President referencing 'the space alien race question'.", match: (s) => /1963|space alien|presidential/i.test(`${s.title} ${s.description}`) },
+  { key: "fbi-62hq", label: "FBI case file 62-HQ-83894 (1947–73)", why: "The FBI's long-running UFO case file: investigative records and eyewitness testimony.", match: (s) => /62-hq-83894|83894/i.test(`${s.title} ${s.description}`) },
+  { key: "navy-era", label: "Navy era — Gulf/Syria/Iraq ops (2022–26)", why: "Recent military encounters with IR/FLIR footage from the Arabian Gulf, Syria and Iraq — the modern Tic-Tac-style cases.", match: (s) => (s.year != null && s.year >= 2016) },
+];
+
+server.tool(
+  "notable_cases",
+  "Return curated, historically significant cases from the release (Foo Fighters, Gemini 7, Apollo, Maury Island, the 1963 presidential memo, the FBI case file, the Navy era) — each with the matching records and why it matters.",
+  { key: z.enum(NOTABLE.map((n) => n.key) as [string, ...string[]]).optional().describe("optional: just one case group") },
+  async ({ key }) => {
+    const groups = (key ? NOTABLE.filter((n) => n.key === key) : NOTABLE).map((n) => ({
+      key: n.key,
+      label: n.label,
+      why: n.why,
+      records: ALL.filter(n.match).slice(0, 8).map(brief),
+    })).filter((g) => g.records.length > 0);
+    return json({ notable_cases: groups });
+  }
+);
+
+server.tool(
+  "timeline_data",
+  "Per-period records WITH coordinates — for building animated timelines / maps that play through 1944→2026.",
+  { granularity: z.enum(["decade", "year"]).optional().default("decade") },
+  async ({ granularity }) => {
+    const buckets = new Map<string, Sighting[]>();
+    for (const s of ALL) {
+      if (s.year == null) continue;
+      const key = granularity === "year" ? String(s.year) : `${Math.floor(s.year / 10) * 10}s`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key)!.push(s);
+    }
+    const periods = [...buckets.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([period, arr]) => ({
+      period,
+      count: arr.length,
+      records: arr.map((s) => ({ id: s.id, year: s.year, agency: s.agency, type: s.type, location: s.location, lat: s.lat, lng: s.lng, offworld: s.offworld })),
+    }));
+    return json({ granularity, periods });
+  }
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error("uap-pulse MCP server running (stdio) — 161 declassified PURSUE records loaded.");
+console.error("uap-pulse MCP server v0.2 running (stdio) — 161 declassified PURSUE records, 9 tools.");
