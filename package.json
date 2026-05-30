@@ -1,0 +1,47 @@
+{
+  "name": "uap-pulse",
+  "version": "0.1.0",
+  "description": "MCP server for the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). Let your AI agent search 161 government UAP records by location, agency, era, and type — and map the hotspots.",
+  "type": "module",
+  "bin": {
+    "uap-pulse": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "data/sightings.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "tsc",
+    "start": "node dist/index.js",
+    "data": "python3 scripts/build_data.py"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "uap",
+    "ufo",
+    "pentagon",
+    "pursue",
+    "declassified",
+    "war.gov",
+    "ai-agents",
+    "claude"
+  ],
+  "author": "David Mosiah (@delx369)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.4",
+    "@types/node": "^20.14.0"
+  }
+}
