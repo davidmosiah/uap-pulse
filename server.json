@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.davidmosiah/uap-pulse",
+  "description": "Search and map the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov). 161 public-domain government records, 1944-2026.",
+  "version": "0.2.0",
+  "repository": {
+    "url": "https://github.com/davidmosiah/uap-pulse",
+    "source": "github"
+  },
+  "websiteUrl": "https://uap-pulse.vercel.app",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "uap-pulse",
+      "version": "0.2.0",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}
