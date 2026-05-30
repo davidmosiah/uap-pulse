@@ -1,6 +1,6 @@
-# Authentication — uap-pulse
+# auth.md — uap-pulse
 
-**No authentication is required. This service is fully public and open.**
+**Agent audience:** any AI agent or MCP client. **No authentication is required — this service is fully public and open.**
 
 - **MCP server:** runs locally over stdio via `npx -y uap-pulse`. No API key, no OAuth, no registration.
 - **Data endpoint:** `https://uap-pulse.vercel.app/sightings.json` is openly readable (CORS `*`), no credentials.
