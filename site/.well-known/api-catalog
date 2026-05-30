@@ -1,0 +1,20 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://uap-pulse.vercel.app/sightings.json",
+      "service-desc": [
+        { "href": "https://uap-pulse.vercel.app/openapi.json", "type": "application/json", "title": "OpenAPI description of the UAP data endpoint" }
+      ],
+      "service-doc": [
+        { "href": "https://github.com/davidmosiah/uap-pulse", "type": "text/html", "title": "uap-pulse documentation" },
+        { "href": "https://uap-pulse.vercel.app/llms.txt", "type": "text/plain", "title": "LLM-readable summary" }
+      ],
+      "service-meta": [
+        { "href": "https://uap-pulse.vercel.app/.well-known/mcp/server-card.json", "type": "application/json", "title": "MCP Server Card" }
+      ],
+      "status": [
+        { "href": "https://uap-pulse.vercel.app/sightings.json" }
+      ]
+    }
+  ]
+}

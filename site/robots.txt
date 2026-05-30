@@ -1,6 +1,8 @@
 # uap-pulse — open data, agents welcome.
 User-agent: *
 Allow: /
+# Content usage preferences (public-domain government data — agent use encouraged)
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
 # AI / agent crawlers explicitly welcomed
 User-agent: GPTBot

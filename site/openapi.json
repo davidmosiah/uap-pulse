@@ -1,0 +1,50 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "uap-pulse data API",
+    "version": "0.2.0",
+    "description": "Read-only access to the declassified PURSUE UAP dataset (US public domain). For rich querying, use the MCP server: npx -y uap-pulse.",
+    "license": { "name": "US public domain (17 USC 105)", "url": "https://www.usa.gov/government-works" }
+  },
+  "servers": [{ "url": "https://uap-pulse.vercel.app" }],
+  "paths": {
+    "/sightings.json": {
+      "get": {
+        "operationId": "getSightings",
+        "summary": "The full PURSUE UAP dataset (161 records + metadata).",
+        "responses": {
+          "200": {
+            "description": "Dataset",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "meta": { "type": "object" },
+                    "sightings": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "title": { "type": "string" },
+                          "agency": { "type": "string" },
+                          "type": { "type": "string", "enum": ["PDF", "VID", "IMG"] },
+                          "year": { "type": ["integer", "null"] },
+                          "location": { "type": ["string", "null"] },
+                          "lat": { "type": ["number", "null"] },
+                          "lng": { "type": ["number", "null"] },
+                          "link": { "type": ["string", "null"] }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

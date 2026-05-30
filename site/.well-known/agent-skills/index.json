@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agentskills.io/schema/v0.2.0/index.json",
+  "version": "0.2.0",
+  "skills": [
+    {
+      "name": "uap-pulse",
+      "type": "mcp",
+      "description": "Search and map 161 declassified U.S. Pentagon UAP/UFO records (PURSUE Release, war.gov, 1944-2026). Public domain, no auth. Install: npx -y uap-pulse.",
+      "url": "https://uap-pulse.vercel.app/.well-known/agent-skills/uap-pulse/SKILL.md",
+      "digest": "sha256:f68bbc0c12e737917c13ac8f8b0c3f4a4c2b41f84035e1dcf0b9dd1e058930b8",
+      "sha256": "f68bbc0c12e737917c13ac8f8b0c3f4a4c2b41f84035e1dcf0b9dd1e058930b8"
+    }
+  ]
+}

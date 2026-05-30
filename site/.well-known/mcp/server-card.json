@@ -1,0 +1,32 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schema/server-card/draft",
+  "serverInfo": {
+    "name": "uap-pulse",
+    "version": "0.2.0",
+    "title": "UAP Pulse — declassified Pentagon UAP files",
+    "description": "Search and map 161 declassified U.S. government UAP/UFO records (PURSUE Release, war.gov, 1944–2026). Public domain, no auth.",
+    "websiteUrl": "https://uap-pulse.vercel.app",
+    "repositoryUrl": "https://github.com/davidmosiah/uap-pulse"
+  },
+  "transport": {
+    "type": "stdio",
+    "command": "npx",
+    "args": ["-y", "uap-pulse"]
+  },
+  "capabilities": {
+    "tools": { "listChanged": false }
+  },
+  "tools": [
+    { "name": "search_sightings", "description": "Search records by free text, agency, file type, year range, or location." },
+    { "name": "search_nearby", "description": "Incidents within a radius (km) of a lat/lng, by distance." },
+    { "name": "get_sighting", "description": "Full record for one file id, with the war.gov source link." },
+    { "name": "full_text_search", "description": "Relevance-ranked substring search across all records." },
+    { "name": "notable_cases", "description": "Curated, historically significant cases." },
+    { "name": "hotspots", "description": "Locations ranked by record count." },
+    { "name": "stats", "description": "Totals and breakdowns by agency, type, era." },
+    { "name": "timeline", "description": "Record counts per decade or year." },
+    { "name": "timeline_data", "description": "Per-period records with coordinates for animation." }
+  ],
+  "license": "MIT",
+  "dataLicense": "U.S. public domain (17 U.S.C. 105)"
+}

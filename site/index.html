@@ -329,7 +329,37 @@ fetch('sightings.json').then(r=>r.json()).then(db=>{
   document.getElementById('panelX').onclick=()=>document.getElementById('panel').classList.remove('open');
   setTimeout(()=>document.getElementById('load').classList.add('gone'),700);
   window.addEventListener('resize',()=>{world.width(innerWidth);world.height(innerHeight);});
+  registerWebMCP();
 }).catch(e=>{document.getElementById('load').innerHTML='SIGNAL LOST — '+e;});
+
+// WebMCP — expose this site's tools to in-browser AI agents (navigator.modelContext)
+function registerWebMCP(){
+  try{
+    if (!(navigator && navigator.modelContext && navigator.modelContext.provideContext)) return;
+    navigator.modelContext.provideContext({ tools: [
+      {
+        name: "search_uap_sightings",
+        description: "Search the declassified Pentagon UAP records (PURSUE Release) by free text — matches title, location, agency and description.",
+        inputSchema: { type:"object", properties:{ query:{type:"string", description:"text to search for"}, limit:{type:"number", default:10} }, required:["query"] },
+        async execute({ query, limit }){
+          const q=(query||"").toLowerCase();
+          const hits=DB.sightings.filter(s=>(`${s.title} ${s.description} ${s.location||""} ${s.agency}`).toLowerCase().includes(q))
+            .slice(0, limit||10).map(s=>({ id:s.id, title:s.title, agency:s.agency, year:s.year, location:s.location, link:s.link }));
+          return { content:[{ type:"text", text:JSON.stringify({ matches:hits.length, results:hits }) }] };
+        }
+      },
+      {
+        name: "uap_dataset_stats",
+        description: "Summary statistics of the declassified UAP dataset: total records and counts by agency.",
+        inputSchema: { type:"object", properties:{} },
+        async execute(){
+          const a={}; DB.sightings.forEach(s=>{ a[s.agency]=(a[s.agency]||0)+1; });
+          return { content:[{ type:"text", text:JSON.stringify({ total:DB.sightings.length, by_agency:a, year_range:"1944-2026", source:DB.meta.source }) }] };
+        }
+      }
+    ]});
+  }catch(e){ /* WebMCP not supported in this browser */ }
+}
 </script>
 </body>
 </html>
