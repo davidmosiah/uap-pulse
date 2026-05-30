@@ -342,7 +342,7 @@ fetch('sightings.json').then(r=>r.json()).then(db=>{
     .onPointClick(openLocation)
     .pointsMerge(false).pointResolution(6);
   world.controls().autoRotate=true; world.controls().autoRotateSpeed=0.42; world.controls().enableDamping=true;
-  world.pointOfView({lat:28,lng:35,altitude:2.4},0);
+  world.pointOfView({lat:12,lng:-38,altitude:2.5},0);
   document.getElementById('cRecords').textContent = DB.sightings.length;
   buildLegend(); buildEras(); buildOffworld(); refresh();
   document.getElementById('q').addEventListener('input', e=>{ searchQuery = e.target.value.toLowerCase().trim(); refresh(); });
