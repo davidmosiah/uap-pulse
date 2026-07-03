@@ -1,6 +1,7 @@
 {
   "name": "uap-pulse",
-  "version": "0.3.1",
+  "version": "0.3.2",
+  "mcpName": "io.github.davidmosiah/uap-pulse",
   "description": "MCP server for the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). Let your AI agent search 238 official UAP records (US + 12 nations) by location, agency, era, and type — and map the hotspots.",
   "type": "module",
   "bin": {
