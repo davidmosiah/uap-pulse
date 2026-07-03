@@ -1,6 +1,6 @@
 {
   "name": "uap-pulse",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "mcpName": "io.github.davidmosiah/uap-pulse",
   "description": "MCP server for the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). Let your AI agent search 238 official UAP records (US + 12 nations) by location, agency, era, and type — and map the hotspots.",
   "type": "module",
@@ -12,7 +12,8 @@
     "dist",
     "data/sightings.json",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "scripts": {
     "build": "tsc",
@@ -34,6 +35,14 @@
   ],
   "author": "David Mosiah (@delx369)",
   "license": "MIT",
+  "homepage": "https://uap-pulse.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidmosiah/uap-pulse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davidmosiah/uap-pulse/issues"
+  },
   "engines": {
     "node": ">=18"
   },

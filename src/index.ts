@@ -63,7 +63,7 @@ function brief(s: Sighting) {
 
 const json = (data: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] });
 
-const server = new McpServer({ name: "uap-pulse", version: "0.3.1" });
+const server = new McpServer({ name: "uap-pulse", version: "0.3.3" });
 
 server.tool(
   "search_sightings",
