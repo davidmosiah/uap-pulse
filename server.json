@@ -1,8 +1,8 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.davidmosiah/uap-pulse",
-  "description": "Search and map declassified Pentagon UAP/UFO files from the PURSUE release.",
-  "version": "0.3.3",
+  "description": "Search and map all four Pentagon PURSUE UAP/UFO releases plus curated official archives from 12 nations.",
+  "version": "0.4.0",
   "repository": {
     "url": "https://github.com/davidmosiah/uap-pulse",
     "source": "github"
@@ -13,7 +13,7 @@
       "registryType": "npm",
       "registryBaseUrl": "https://registry.npmjs.org",
       "identifier": "uap-pulse",
-      "version": "0.3.3",
+      "version": "0.4.0",
       "transport": {
         "type": "stdio"
       }

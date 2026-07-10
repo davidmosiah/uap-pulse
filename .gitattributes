@@ -1,0 +1,2 @@
+# Preserve the upstream war.gov CSV verbatim, including whitespace inside quoted descriptions.
+scripts/uap-data.csv -whitespace

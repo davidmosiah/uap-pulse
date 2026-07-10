@@ -1,32 +1,34 @@
 {
   "name": "uap-pulse",
-  "description": "MCP server over the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov). 238 official government UAP records (US PURSUE + 12 nations), 1944-2026, with an interactive 3D map.",
-  "version": "0.3.1",
+  "description": "MCP server over 350 official-government UAP/UFO records: all four U.S. Pentagon PURSUE releases plus curated archives from 12 nations, with an interactive 3D map.",
+  "version": "0.4.0",
   "homepage": "https://uap-pulse.vercel.app",
   "repository": "https://github.com/davidmosiah/uap-pulse",
   "license": "MIT",
-  "data_license": "U.S. public domain (17 U.S.C. 105)",
+  "data_license": "U.S. PURSUE records: public domain (17 U.S.C. 105); international source rights may vary",
   "install": {
     "npm": "uap-pulse",
     "command": "npx -y uap-pulse",
     "transport": "stdio"
   },
   "tools": [
-    { "name": "search_sightings", "description": "Search records by free text, agency, file type, year range, or location." },
+    { "name": "search_sightings", "description": "Search records by PURSUE release, free text, agency, file type, year range, or location." },
     { "name": "search_nearby", "description": "Incidents within a radius (km) of a latitude/longitude, sorted by distance." },
     { "name": "get_sighting", "description": "Full record for one file id, including the war.gov source link." },
     { "name": "full_text_search", "description": "Relevance-ranked substring search across all descriptions, titles and locations." },
     { "name": "notable_cases", "description": "Curated, historically significant cases with context." },
     { "name": "hotspots", "description": "Locations ranked by number of declassified records." },
-    { "name": "stats", "description": "Totals and breakdowns by agency, file type, and era." },
+    { "name": "stats", "description": "Totals and breakdowns by release, agency, file type, and era." },
     { "name": "timeline", "description": "Record counts per decade or year." },
     { "name": "timeline_data", "description": "Per-period records with coordinates for animated timelines." }
   ],
   "dataset": {
-    "records": 238,
-    "geolocated": 186,
+    "records": 350,
+    "us_records": 334,
+    "geolocated": 275,
+    "offworld": 20,
     "years": "1944-2026",
-    "agencies": ["Department of War", "FBI", "NASA", "Department of State", "Central Intelligence Agency", "Office of the Director of National Intelligence", "Department of Energy"],
-    "source": "war.gov PURSUE Releases 1 & 2 (2026-05-08, 2026-05-22)"
+    "agencies": ["Department of War", "FBI", "NASA", "Central Intelligence Agency", "Department of State", "Department of Energy", "Office of the Director of National Intelligence", "Intelligence Community Agency", "U.S. Government"],
+    "source": "war.gov PURSUE Releases 1–4 (2026-05-08 through 2026-07-10) + 12 national archives"
   }
 }

@@ -5,10 +5,10 @@
     {
       "name": "uap-pulse",
       "type": "mcp",
-      "description": "Search and map 238 declassified U.S. Pentagon UAP/UFO records (PURSUE Release, war.gov, 1944-2026). Public domain, no auth. Install: npx -y uap-pulse.",
+      "description": "Search and map 350 official-government UAP/UFO records: Pentagon PURSUE Releases 1–4 plus curated archives from 12 nations. No auth. Install: npx -y uap-pulse.",
       "url": "https://uap-pulse.vercel.app/.well-known/agent-skills/uap-pulse/SKILL.md",
-      "digest": "sha256:f68bbc0c12e737917c13ac8f8b0c3f4a4c2b41f84035e1dcf0b9dd1e058930b8",
-      "sha256": "f68bbc0c12e737917c13ac8f8b0c3f4a4c2b41f84035e1dcf0b9dd1e058930b8"
+      "digest": "sha256:f3e4014dc1c415f6d7ab3f93bddcfc3033c07f8e2cab07dcb81127fa0f4a0cec",
+      "sha256": "f3e4014dc1c415f6d7ab3f93bddcfc3033c07f8e2cab07dcb81127fa0f4a0cec"
     }
   ]
 }

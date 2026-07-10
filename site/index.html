@@ -5,17 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <title>PURSUE · Declassified UAP Files — uap-pulse</title>
-<meta name="description" content="An interactive map of the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). 238 official government UAP records (US + 12 nations), 1944–2026. Open data, open MCP." />
+<meta name="description" content="Explore 350 official-government UAP/UFO records: all four Pentagon PURSUE releases plus curated archives from 12 nations. Open data, open MCP." />
 <meta property="og:title" content="PURSUE — The Pentagon's Declassified UAP Files" />
-<meta property="og:description" content="238 official UAP records (US Pentagon + 12 nations) on a live map. Your AI agent can query them too — open MCP." />
+<meta property="og:description" content="Release 04 is live. Explore 350 official UAP records on a 3D map — and query every file with an open MCP server." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://uap-pulse.vercel.app/" />
-<meta property="og:image" content="https://uap-pulse.vercel.app/og.png" />
+<meta property="og:image" content="https://uap-pulse.vercel.app/og-release-04.png" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:site" content="@delx369" />
 <meta name="twitter:title" content="PURSUE — The Pentagon's Declassified UAP Files" />
-<meta name="twitter:description" content="238 official government UAP records (US + 12 nations), mapped. Queryable by any AI agent via an open MCP server." />
-<meta name="twitter:image" content="https://uap-pulse.vercel.app/og.png" />
+<meta name="twitter:description" content="Release 04 is live: 350 official-government UAP records, mapped and queryable by any AI agent via an open MCP server." />
+<meta name="twitter:image" content="https://uap-pulse.vercel.app/og-release-04.png" />
 <link rel="canonical" href="https://uap-pulse.vercel.app/" />
 <script type="application/ld+json">
 {
@@ -25,16 +25,17 @@
       "@type": "WebSite",
       "name": "uap-pulse — PURSUE Declassified UAP Files",
       "url": "https://uap-pulse.vercel.app/",
-      "description": "An interactive 3D map of the U.S. Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). 238 official government UAP records (US PURSUE + 12 nations), 1944-2026.",
+      "description": "An interactive 3D map of 350 official-government UAP/UFO records: all four U.S. PURSUE releases plus curated archives from 12 nations, 1944-2026.",
       "author": { "@type": "Person", "name": "David Mosiah", "sameAs": "https://x.com/delx369" }
     },
     {
       "@type": "Dataset",
-      "name": "PURSUE Releases 1 & 2 — declassified U.S. government UAP records",
-      "description": "238 official government UAP records: the U.S. Pentagon PURSUE releases (war.gov, 2026) across seven agencies, plus 16 curated official cases from 12 other nations (Brazil/FAB, France/GEIPAN, UK/MoD, Chile/CEFAA, Belgium, Spain, Mexico, Iran, Canada, New Zealand, USSR, Uruguay). Includes incident date, location, agency, file type and a direct source link.",
+      "name": "PURSUE Releases 1–4 — official U.S. government UAP records",
+      "description": "350 official-government UAP records: 334 files from all four U.S. Pentagon PURSUE releases plus 16 curated official cases from 12 other nations. Includes incident date, location, agency, release, file type and a direct source link.",
       "url": "https://uap-pulse.vercel.app/",
       "sameAs": "https://www.war.gov/UFO/",
       "datePublished": "2026-05-08",
+      "dateModified": "2026-07-10",
       "creator": { "@type": "GovernmentOrganization", "name": "U.S. Department of War" },
       "license": "https://www.usa.gov/government-works",
       "isAccessibleForFree": true,
@@ -51,7 +52,7 @@
       "applicationCategory": "DeveloperApplication",
       "operatingSystem": "Node.js",
       "description": "An MCP (Model Context Protocol) server that lets AI agents query the PURSUE declassified UAP records by location, agency, era and type. Install with: npx -y uap-pulse",
-      "softwareVersion": "0.3.1",
+      "softwareVersion": "0.4.0",
       "downloadUrl": "https://www.npmjs.com/package/uap-pulse",
       "url": "https://github.com/davidmosiah/uap-pulse",
       "license": "https://opensource.org/licenses/MIT",
@@ -80,7 +81,9 @@
   .top{top:26px;left:30px;max-width:min(46vw,520px)}
   .stamp{display:inline-block;border:2px solid var(--war);color:var(--war);
     font:700 11px/1 'Space Mono';letter-spacing:.34em;padding:5px 9px;border-radius:3px;
-    transform:rotate(-3deg);opacity:.9;text-shadow:0 0 12px rgba(255,59,107,.6)}
+    transform:rotate(-3deg);opacity:.9;text-shadow:0 0 12px rgba(255,59,107,.6);
+    background:rgba(4,6,13,.55);cursor:pointer}
+  .stamp:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
   h1{font-family:'Major Mono Display','Space Mono',monospace;font-weight:400;
     font-size:clamp(34px,5.4vw,68px);margin:14px 0 4px;letter-spacing:.04em;
     text-shadow:0 0 26px rgba(59,209,255,.45),0 0 4px rgba(155,91,255,.5)}
@@ -158,20 +161,21 @@
 </style>
 </head>
 <body>
-  <div id="globe" role="img" aria-label="Interactive 3D globe mapping 238 declassified Pentagon UAP/UFO records (PURSUE Release, 1944–2026), with pulsing points colored by the originating agency."></div>
+  <div id="globe" role="img" aria-label="Interactive 3D globe mapping 350 official-government UAP/UFO records (PURSUE Releases 1–4 plus 12 nations, 1944–2026), with pulsing points colored by the originating agency."></div>
   <noscript>
     <article style="max-width:760px;margin:40px auto;padding:24px;color:#d6e6ff;font-family:monospace;line-height:1.6">
       <h1>PURSUE — The Pentagon's Declassified UAP Files</h1>
       <p>An interactive map and an <strong>MCP server</strong> over the U.S. Department of War's
-      <a href="https://www.war.gov/UFO/">PURSUE Releases 1 &amp; 2</a> (war.gov, May 2026): <strong>238 declassified
-      UAP/UFO records</strong> spanning <strong>1944–2026</strong>. All data is U.S. public domain
-      (17 U.S.C. § 105) — no scraped third-party data.</p>
+      <a href="https://www.war.gov/UFO/">PURSUE Releases 1–4</a> (war.gov, May–July 2026): <strong>334 U.S. records</strong>,
+      plus 16 curated official cases from 12 nations — <strong>350 records total</strong>, spanning <strong>1944–2026</strong>.
+      U.S. records are public domain under 17 U.S.C. § 105. The collection contains unresolved cases; it does not establish an extraterrestrial origin.</p>
       <h2>The dataset</h2>
       <ul>
-        <li>238 records · 186 geolocated · 15 off-world (Moon / orbit / cislunar)</li>
-        <li>Department of War — 131 · FBI — 57 · NASA — 22 · Department of State — 7 · CIA — 1 · ODNI — 1 · Department of Energy — 3</li>
-        <li>File types: 122 PDFs, 78 videos, 14 images, 8 audio — each linking to the original on war.gov</li>
-        <li>Hotspots: CENTCOM (32), Western United States (26), Arabian Gulf (12), Syria (10), Iraq (8)</li>
+        <li>350 records · 275 geolocated · 20 off-world (Moon / orbit / cislunar)</li>
+        <li>Release 04 — 40 new files published July 10, 2026</li>
+        <li>U.S. agencies: War — 171 · FBI — 87 · NASA — 40 · CIA — 21 · State — 7 · DOE — 5 · other — 3</li>
+        <li>File types: 189 PDFs · 106 videos · 27 images · 15 audio · 13 international documents</li>
+        <li>Hotspots: Western United States (40), CENTCOM (32), Arabian Gulf (12), Northeastern United States (11), Syria (10)</li>
       </ul>
       <h2>Query it with your AI agent</h2>
       <p>Install the open MCP server (no auth): <code>npx -y uap-pulse</code>. Tools include
@@ -189,13 +193,13 @@
   <div class="fx vig"></div>
 
   <header class="ui top">
-    <span class="stamp">DECLASSIFIED</span>
+    <button class="stamp" id="latest" type="button">RELEASE 04 · 40 FILES</button>
     <h1>pursue</h1>
     <div class="sub">Official government <b>UAP records</b>, mapped.<br>
-      <b>238</b> records · 🇺🇸 Pentagon PURSUE + <b>12 nations</b> · <b>1944–2026</b>.</div>
+      <b>350</b> records · 🇺🇸 Pentagon PURSUE + <b>12 nations</b> · <b>1944–2026</b>.</div>
   </header>
 
-  <div class="ui search"><input id="q" type="search" placeholder="search 238 files — place, country, agency…" autocomplete="off" aria-label="Search the declassified UAP records" /></div>
+  <div class="ui search"><input id="q" type="search" placeholder="search 350 files — place, country, agency…" autocomplete="off" aria-label="Search the official UAP records" /></div>
 
   <div class="ui legend" id="legend"></div>
 
@@ -204,9 +208,9 @@
   <div class="ui offworld" id="offworld"></div>
 
   <div class="ui bar">
-    <span><span class="n" id="cRecords">238</span><span class="k">records</span></span>
+    <span><span class="n" id="cRecords">350</span><span class="k">records</span></span>
     <span class="sep"></span>
-    <span><span class="n">13</span><span class="k">nations</span></span>
+    <span><span class="n">12</span><span class="k">nations</span></span>
     <span class="sep"></span>
     <span><span class="n" id="cLoc">—</span><span class="k">hotspots</span></span>
     <span class="sep"></span>
@@ -227,9 +231,10 @@
 <script>
 const COLORS = {
   "Department of War":"#ff3b6b", "FBI":"#ffcf3b", "NASA":"#3bd1ff", "Department of State":"#9b5bff",
-  "Central Intelligence Agency":"#46e8a0", "Office of the Director of National Intelligence":"#ff8a4d", "Department of Energy":"#e85cff"
+  "Central Intelligence Agency":"#46e8a0", "Office of the Director of National Intelligence":"#ff8a4d", "Department of Energy":"#e85cff",
+  "Intelligence Community Agency":"#ff8a4d", "U.S. Government":"#9fb4d6"
 };
-const SHORT = {"Department of War":"War","FBI":"FBI","NASA":"NASA","Department of State":"State","Central Intelligence Agency":"CIA","Office of the Director of National Intelligence":"ODNI","Department of Energy":"DOE"};
+const SHORT = {"Department of War":"War","FBI":"FBI","NASA":"NASA","Department of State":"State","Central Intelligence Agency":"CIA","Office of the Director of National Intelligence":"ODNI","Department of Energy":"DOE","Intelligence Community Agency":"IC","U.S. Government":"USG"};
 const short = a => SHORT[a] || (a||"").replace("Department of ","");
 const ERAS = [
   ["ALL", () => true],
@@ -333,6 +338,18 @@ function buildOffworld(){
   };
 }
 
+function buildLatest(){
+  const latest = DB.sightings.filter(s => s.release === 'Release 4 (2026-07-10)');
+  const el = document.getElementById('latest');
+  el.textContent = `RELEASE 04 · ${latest.length} FILES`;
+  el.onclick=()=>{
+    document.getElementById('pTitle').textContent='Release 04';
+    document.getElementById('pMeta').textContent=`${latest.length} official files · released July 10, 2026`;
+    document.getElementById('pBody').innerHTML = latest.map(recHTML).join('');
+    document.getElementById('panel').classList.add('open');
+  };
+}
+
 fetch('sightings.json').then(r=>r.json()).then(db=>{
   DB=db;
   world = Globe()(document.getElementById('globe'))
@@ -345,7 +362,7 @@ fetch('sightings.json').then(r=>r.json()).then(db=>{
   world.controls().autoRotate=true; world.controls().autoRotateSpeed=0.42; world.controls().enableDamping=true;
   world.pointOfView({lat:12,lng:-38,altitude:2.5},0);
   document.getElementById('cRecords').textContent = DB.sightings.length;
-  buildLegend(); buildEras(); buildOffworld(); refresh();
+  buildLegend(); buildEras(); buildOffworld(); buildLatest(); refresh();
   document.getElementById('q').addEventListener('input', e=>{ searchQuery = e.target.value.toLowerCase().trim(); refresh(); });
   document.getElementById('panelX').onclick=()=>document.getElementById('panel').classList.remove('open');
   setTimeout(()=>document.getElementById('load').classList.add('gone'),700);

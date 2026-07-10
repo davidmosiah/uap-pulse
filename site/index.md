@@ -1,13 +1,14 @@
 # PURSUE — The Pentagon's Declassified UAP Files
 
-An interactive 3D map and an **MCP server** over the U.S. Department of War's **PURSUE Releases 1 & 2** (war.gov, May 2026): **238 declassified UAP/UFO records** spanning **1944–2026**, across seven U.S. federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). All data is U.S. public domain (17 U.S.C. § 105) — no scraped third-party data.
+An interactive 3D map and an **MCP server** over all four U.S. Department of War **PURSUE releases** (war.gov, May–July 2026): **334 U.S. records**, plus 16 curated official-government cases from 12 nations — **350 records total**, spanning **1944–2026**. U.S. data is public domain under 17 U.S.C. § 105.
 
 ## The dataset
 
-- 238 records · 186 geolocated · 15 off-world (Moon / orbit / cislunar)
-- War — 131 · FBI — 57 · NASA — 22 · State — 7 · CIA — 1 · ODNI — 1 · DOE — 3
-- 122 PDFs · 78 videos · 14 images · 8 audio — each links to the original on war.gov
-- Hotspots: CENTCOM (32), Western United States (26), Arabian Gulf (12), Syria (10), Iraq (8)
+- 350 records · 275 geolocated · 20 off-world (Moon / orbit / cislunar)
+- Release 04: 40 files published July 10, 2026
+- U.S. agencies: War — 171 · FBI — 87 · NASA — 40 · CIA — 21 · State — 7 · DOE — 5 · other — 3
+- 189 PDFs · 106 videos · 27 images · 15 audio · 13 international documents
+- Hotspots: Western United States (40), CENTCOM (32), Arabian Gulf (12), Northeastern United States (11), Syria (10)
 
 ## Query it with your AI agent
 

@@ -2,9 +2,9 @@
 
 **An MCP server (and a live map) for the Pentagon's declassified UAP files.**
 
-On **May 8, 2026**, the U.S. Department of War published the first **PURSUE Release** on [war.gov/UFO](https://www.war.gov/UFO/) — **238 declassified UAP/UFO records** spanning **1944–2026**, across seven federal agencies (War, FBI, NASA, State, CIA, ODNI, Energy). `uap-pulse` puts that release at your AI agent's fingertips — and on a map.
+On **July 10, 2026**, the U.S. Department of War published **PURSUE Release 04** on [war.gov/UFO](https://www.war.gov/UFO/). `uap-pulse` now bundles all four releases: **334 U.S. records**, plus 16 curated official-government cases from 12 nations — **350 records total**, spanning **1944–2026**.
 
-> **Government records only.** This project uses *only* public-domain U.S. federal records (17 U.S.C. § 105). No scraped third-party databases, no civilian data behind a ToS. Not affiliated with or endorsed by the U.S. government.
+> **Official sources only.** U.S. PURSUE records are public domain under 17 U.S.C. § 105. The international layer links to official national archives; rights remain with each originating source. No scraped civilian databases. Not affiliated with or endorsed by any government.
 
 🗺️ **Live map:** https://uap-pulse.vercel.app  ·  📦 **npm:** `uap-pulse`
 
@@ -12,7 +12,7 @@ On **May 8, 2026**, the U.S. Department of War published the first **PURSUE Rele
 
 ## Use it as an MCP server
 
-Your agent can search 238 declassified files by location, agency, era, or type — and pull the direct `war.gov` source link for each.
+Your agent can search all 350 records by release, location, agency, era, or type — and pull the direct official source link for each.
 
 **Claude Desktop / any MCP client** — add to your config:
 
@@ -30,14 +30,19 @@ That's it — no API key, no auth, no cost. The data ships with the package.
 
 | Tool | What it does |
 |------|--------------|
-| `search_sightings` | Search by free text, `agency`, `type` (PDF/VID/IMG), `year_start`/`year_end`, or `location`. |
+| `search_sightings` | Search by `release` (1–4), free text, agency, type, year range, or location. |
 | `search_nearby` | Incidents within a radius (km) of a lat/lng, sorted by distance. |
 | `get_sighting` | Full record for one file id (e.g. `pursue-042`) + the `war.gov` link. |
+| `full_text_search` | Relevance-ranked search across titles, locations, and descriptions. |
+| `notable_cases` | Curated historically significant groups with source records. |
 | `hotspots` | The locations with the most declassified records. |
-| `stats` | Totals + breakdowns by agency, file type, and era. |
+| `stats` | Totals + breakdowns by release, agency, file type, and era. |
 | `timeline` | Records per decade (or year), 1944 → 2026. |
+| `timeline_data` | Per-period records with coordinates for maps and animation. |
 
 **Example** — *"What UAP files mention the Moon?"* → `search_sightings({ location: "Moon" })` → NASA Gemini/Apollo records with their war.gov links.
+
+**Latest release** — `search_sightings({ release: 4, limit: 100 })` → all 40 files released on July 10, including the 1949 Los Alamos conference transcript, Project Sign records, new sensor videos, and STS-80 images.
 
 ---
 
@@ -57,10 +62,10 @@ Or deploy the `site/` folder to Vercel (static, no build step).
 
 ## Data
 
-- **Source:** [war.gov/UFO](https://www.war.gov/UFO/) — PURSUE Releases 1 & 2 (2026-05-08, 2026-05-22).
+- **Source:** [war.gov/UFO](https://www.war.gov/UFO/) — PURSUE Releases 1–4 (2026-05-08 through 2026-07-10).
 - **License of the data:** Public domain (U.S. federal government work, 17 U.S.C. § 105).
-- **Coverage:** 238 records · 186 geolocated · 1944–2026 · agencies: War (131), FBI (57), NASA (22), State (7), CIA (1), ODNI (1), DOE (3).
-- Record index mirrored by the community ([vfp2/pursue-ufo-files](https://github.com/vfp2/pursue-ufo-files)); coordinates are representative centroids for each named location, geocoded in [`scripts/build_data.py`](scripts/build_data.py).
+- **Coverage:** 350 records · 275 geolocated · 20 off-world · 1944–2026. U.S. records by agency: War (171), FBI (87), NASA (40), CIA (21), State (7), DOE (5), ODNI (1), Intelligence Community Agency (1), U.S. Government (1).
+- The official `war.gov` CSV is mirrored locally for reproducible builds; coordinates are representative centroids for named locations, maintained in [`scripts/build_data.py`](scripts/build_data.py).
 
 Rebuild the dataset: `npm run data` (or `python3 scripts/build_data.py`).
 

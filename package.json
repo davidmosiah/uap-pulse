@@ -1,8 +1,8 @@
 {
   "name": "uap-pulse",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "mcpName": "io.github.davidmosiah/uap-pulse",
-  "description": "MCP server for the Pentagon's declassified UAP/UFO files (PURSUE Release, war.gov, 2026). Let your AI agent search 238 official UAP records (US + 12 nations) by location, agency, era, and type — and map the hotspots.",
+  "description": "MCP server for 350 official-government UAP/UFO records: Pentagon PURSUE Releases 1–4 plus curated archives from 12 nations.",
   "type": "module",
   "bin": {
     "uap-pulse": "dist/index.js"
@@ -19,7 +19,9 @@
     "build": "tsc",
     "prepare": "tsc",
     "start": "node dist/index.js",
-    "data": "python3 scripts/build_data.py"
+    "data": "python3 scripts/build_data.py",
+    "pretest": "npm run build",
+    "test": "node --test tests/*.test.mjs"
   },
   "keywords": [
     "mcp",

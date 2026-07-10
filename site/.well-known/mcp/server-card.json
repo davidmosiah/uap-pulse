@@ -2,9 +2,9 @@
   "$schema": "https://modelcontextprotocol.io/schema/server-card/draft",
   "serverInfo": {
     "name": "uap-pulse",
-    "version": "0.3.1",
+    "version": "0.4.0",
     "title": "UAP Pulse — declassified Pentagon UAP files",
-    "description": "Search and map 238 declassified U.S. government UAP/UFO records (PURSUE Release, war.gov, 1944–2026). Public domain, no auth.",
+    "description": "Search and map 350 official-government UAP/UFO records: PURSUE Releases 1–4 plus curated archives from 12 nations. No auth.",
     "websiteUrl": "https://uap-pulse.vercel.app",
     "repositoryUrl": "https://github.com/davidmosiah/uap-pulse"
   },
@@ -17,16 +17,16 @@
     "tools": { "listChanged": false }
   },
   "tools": [
-    { "name": "search_sightings", "description": "Search records by free text, agency, file type, year range, or location." },
+    { "name": "search_sightings", "description": "Search records by PURSUE release, free text, agency, file type, year range, or location." },
     { "name": "search_nearby", "description": "Incidents within a radius (km) of a lat/lng, by distance." },
     { "name": "get_sighting", "description": "Full record for one file id, with the war.gov source link." },
     { "name": "full_text_search", "description": "Relevance-ranked substring search across all records." },
     { "name": "notable_cases", "description": "Curated, historically significant cases." },
     { "name": "hotspots", "description": "Locations ranked by record count." },
-    { "name": "stats", "description": "Totals and breakdowns by agency, type, era." },
+    { "name": "stats", "description": "Totals and breakdowns by release, agency, type, era." },
     { "name": "timeline", "description": "Record counts per decade or year." },
     { "name": "timeline_data", "description": "Per-period records with coordinates for animation." }
   ],
   "license": "MIT",
-  "dataLicense": "U.S. public domain (17 U.S.C. 105)"
+  "dataLicense": "U.S. PURSUE records: public domain (17 U.S.C. 105); international source rights may vary"
 }

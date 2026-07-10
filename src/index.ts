@@ -2,9 +2,9 @@
 /**
  * uap-pulse — MCP server over the Pentagon's declassified UAP files.
  *
- * Data: war.gov/UFO "PURSUE" Release 1 (US Dept. of War, 2026-05-08), public domain
- * (17 U.S.C. 105). 161 records across the Dept. of War, FBI, NASA, and Dept. of State,
- * spanning 1944–2026. No scraped third-party data — government records only.
+ * Data: war.gov/UFO "PURSUE" Releases 1–4 (US Dept. of War, 2026), public domain
+ * (17 U.S.C. 105), plus curated official-government records from 12 nations.
+ * No scraped third-party databases.
  */
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -18,6 +18,7 @@ type Sighting = {
   agency: string;
   agency_color: string;
   type: string;
+  release: string;
   date: string | null;
   year: number | null;
   era: string;
@@ -35,6 +36,20 @@ const DB = JSON.parse(readFileSync(dataPath, "utf8")) as {
   sightings: Sighting[];
 };
 const ALL = DB.sightings;
+const MAX_RESULTS = ALL.length;
+const VERSION = "0.4.0";
+const RELEASE_LABELS = {
+  1: "Release 1 (2026-05-08)",
+  2: "Release 2 (2026-05-22)",
+  3: "Release 3 (2026-06-12)",
+  4: "Release 4 (2026-07-10)",
+} as const;
+const READ_ONLY_TOOL = {
+  readOnlyHint: true,
+  destructiveHint: false,
+  idempotentHint: true,
+  openWorldHint: false,
+} as const;
 
 function haversineKm(aLat: number, aLng: number, bLat: number, bLng: number): number {
   const R = 6371;
@@ -52,6 +67,7 @@ function brief(s: Sighting) {
     title: s.title,
     agency: s.agency,
     type: s.type,
+    release: s.release,
     date: s.date,
     year: s.year,
     era: s.era,
@@ -63,24 +79,30 @@ function brief(s: Sighting) {
 
 const json = (data: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] });
 
-const server = new McpServer({ name: "uap-pulse", version: "0.3.3" });
+const server = new McpServer({ name: "uap-pulse", version: VERSION });
 
-server.tool(
+server.registerTool(
   "search_sightings",
-  "Search the declassified PURSUE UAP records by free text, agency, file type, year range, or location. Returns matching records (brief form).",
   {
-    query: z.string().optional().describe("free text matched against title, description and location"),
-    agency: z.string().optional().describe("exact agency name, e.g. 'Department of War', 'FBI', 'NASA', 'Department of State', 'Central Intelligence Agency', 'Department of Energy', 'Office of the Director of National Intelligence'"),
-    type: z.enum(["PDF", "VID", "IMG", "AUD", "DOC"]).optional().describe("PDF document, VID video, IMG image, AUD audio, or DOC (international official record)"),
-    year_start: z.number().int().optional(),
-    year_end: z.number().int().optional(),
-    location: z.string().optional().describe("substring match on the incident location, e.g. 'Iraq', 'Moon'"),
-    limit: z.number().int().min(1).max(238).optional().default(25),
+    title: "Search UAP Sightings",
+    description: "Search the declassified PURSUE UAP records by release, free text, agency, file type, year range, or location. Returns matching records in brief form.",
+    inputSchema: {
+      query: z.string().optional().describe("free text matched against title, description and location"),
+      release: z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)]).optional().describe("PURSUE release number, from 1 through 4"),
+      agency: z.string().optional().describe("exact agency name, e.g. 'Department of War', 'FBI', 'NASA', 'Department of State', 'Central Intelligence Agency', 'Department of Energy', 'Office of the Director of National Intelligence'"),
+      type: z.enum(["PDF", "VID", "IMG", "AUD", "DOC"]).optional().describe("PDF document, VID video, IMG image, AUD audio, or DOC (international official record)"),
+      year_start: z.number().int().optional(),
+      year_end: z.number().int().optional(),
+      location: z.string().optional().describe("substring match on the incident location, e.g. 'Iraq', 'Moon'"),
+      limit: z.number().int().min(1).max(MAX_RESULTS).optional().default(25),
+    },
+    annotations: READ_ONLY_TOOL,
   },
-  async ({ query, agency, type, year_start, year_end, location, limit }) => {
+  async ({ query, release, agency, type, year_start, year_end, location, limit }) => {
     const q = query?.toLowerCase();
     const loc = location?.toLowerCase();
     let res = ALL.filter((s) => {
+      if (release && s.release !== RELEASE_LABELS[release]) return false;
       if (agency && s.agency !== agency) return false;
       if (type && s.type !== type) return false;
       if (year_start && (s.year ?? -Infinity) < year_start) return false;
@@ -95,14 +117,18 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "search_nearby",
-  "Find declassified UAP incidents within a radius (km) of a latitude/longitude. Sorted by distance. Off-world records (Moon, orbit) are excluded.",
   {
-    latitude: z.number().min(-90).max(90),
-    longitude: z.number().min(-180).max(180),
-    radius_km: z.number().min(1).max(20000).optional().default(1000),
-    limit: z.number().int().min(1).max(238).optional().default(25),
+    title: "Search Nearby UAP Sightings",
+    description: "Find declassified UAP incidents within a radius (km) of a latitude/longitude. Results are sorted by distance; off-world records are excluded.",
+    inputSchema: {
+      latitude: z.number().min(-90).max(90),
+      longitude: z.number().min(-180).max(180),
+      radius_km: z.number().min(1).max(20000).optional().default(1000),
+      limit: z.number().int().min(1).max(MAX_RESULTS).optional().default(25),
+    },
+    annotations: READ_ONLY_TOOL,
   },
   async ({ latitude, longitude, radius_km, limit }) => {
     const hits = ALL.filter((s) => s.lat != null && s.lng != null && !s.offworld)
@@ -115,21 +141,29 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "get_sighting",
-  "Get the full record for one UAP file by id (e.g. 'pursue-042'), including the full description and the direct war.gov source link.",
-  { id: z.string().describe("record id, e.g. 'pursue-042'") },
+  {
+    title: "Get UAP Sighting",
+    description: "Get the full record for one UAP file by id, including its release, full description, and direct official source link.",
+    inputSchema: { id: z.string().describe("record id, e.g. 'pursue-042'") },
+    annotations: READ_ONLY_TOOL,
+  },
   async ({ id }) => {
     const s = ALL.find((x) => x.id === id.toLowerCase());
-    if (!s) return json({ error: `no record with id '${id}'`, hint: "ids look like 'pursue-001'..'pursue-222' or 'world-001'..." });
+    if (!s) return json({ error: `no record with id '${id}'`, hint: "ids look like 'pursue-001'..'pursue-334' or 'world-001'..." });
     return json(s);
   }
 );
 
-server.tool(
+server.registerTool(
   "hotspots",
-  "Rank the incident locations by how many declassified records mention them (the UAP hotspots).",
-  { limit: z.number().int().min(1).max(50).optional().default(10) },
+  {
+    title: "Rank UAP Hotspots",
+    description: "Rank incident locations by how many declassified records mention them.",
+    inputSchema: { limit: z.number().int().min(1).max(50).optional().default(10) },
+    annotations: READ_ONLY_TOOL,
+  },
   async ({ limit }) => {
     const counts = new Map<string, { count: number; lat: number | null; lng: number | null; offworld: boolean }>();
     for (const s of ALL) {
@@ -146,10 +180,14 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "stats",
-  "Summary statistics for the PURSUE release: totals and breakdowns by agency, file type, and era.",
-  {},
+  {
+    title: "Summarize UAP Dataset",
+    description: "Return totals and breakdowns by PURSUE release, agency, file type, and era.",
+    inputSchema: {},
+    annotations: READ_ONLY_TOOL,
+  },
   async () => {
     const by = (key: keyof Sighting) => {
       const m: Record<string, number> = {};
@@ -166,6 +204,7 @@ server.tool(
       off_world: ALL.filter((s) => s.offworld).length,
       year_range: years.length ? { earliest: Math.min(...years), latest: Math.max(...years) } : null,
       by_agency: by("agency"),
+      by_release: by("release"),
       by_type: by("type"),
       by_era: by("era"),
       source: DB.meta.source,
@@ -174,10 +213,14 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "timeline",
-  "Count declassified UAP records per decade (or per year), to see how sightings cluster over time (1944–2026).",
-  { granularity: z.enum(["decade", "year"]).optional().default("decade") },
+  {
+    title: "Summarize UAP Timeline",
+    description: "Count declassified UAP records per decade or year to show how records cluster over time.",
+    inputSchema: { granularity: z.enum(["decade", "year"]).optional().default("decade") },
+    annotations: READ_ONLY_TOOL,
+  },
   async ({ granularity }) => {
     const buckets: Record<string, number> = {};
     for (const s of ALL) {
@@ -192,12 +235,16 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "full_text_search",
-  "Relevance-ranked free-text search across every record's title, location and description. Use this for thematic digs ('FLIR', 'orb', 'triangular', 'heat source', 'radar').",
   {
-    query: z.string().describe("text to search for across all fields"),
-    limit: z.number().int().min(1).max(238).optional().default(20),
+    title: "Full-Text Search UAP Records",
+    description: "Run a relevance-ranked search across every record's title, location, and description for thematic research.",
+    inputSchema: {
+      query: z.string().describe("text to search for across all fields"),
+      limit: z.number().int().min(1).max(MAX_RESULTS).optional().default(20),
+    },
+    annotations: READ_ONLY_TOOL,
   },
   async ({ query, limit }) => {
     const q = query.toLowerCase();
@@ -231,10 +278,14 @@ const NOTABLE: { key: string; label: string; why: string; match: (s: Sighting) =
   { key: "navy-era", label: "Navy era — Gulf/Syria/Iraq ops (2022–26)", why: "Recent military encounters with IR/FLIR footage from the Arabian Gulf, Syria and Iraq — the modern Tic-Tac-style cases.", match: (s) => (s.year != null && s.year >= 2016) },
 ];
 
-server.tool(
+server.registerTool(
   "notable_cases",
-  "Return curated, historically significant cases from the release (Foo Fighters, Gemini 7, Apollo, Maury Island, the 1963 presidential memo, the FBI case file, the Navy era) — each with the matching records and why it matters.",
-  { key: z.enum(NOTABLE.map((n) => n.key) as [string, ...string[]]).optional().describe("optional: just one case group") },
+  {
+    title: "Browse Notable UAP Cases",
+    description: "Return curated, historically significant cases with matching official records and context for why each case matters.",
+    inputSchema: { key: z.enum(NOTABLE.map((n) => n.key) as [string, ...string[]]).optional().describe("optional: just one case group") },
+    annotations: READ_ONLY_TOOL,
+  },
   async ({ key }) => {
     const groups = (key ? NOTABLE.filter((n) => n.key === key) : NOTABLE).map((n) => ({
       key: n.key,
@@ -246,10 +297,14 @@ server.tool(
   }
 );
 
-server.tool(
+server.registerTool(
   "timeline_data",
-  "Per-period records WITH coordinates — for building animated timelines / maps that play through 1944→2026.",
-  { granularity: z.enum(["decade", "year"]).optional().default("decade") },
+  {
+    title: "Get UAP Timeline Map Data",
+    description: "Return per-period records with coordinates for building timelines and maps across 1944–2026.",
+    inputSchema: { granularity: z.enum(["decade", "year"]).optional().default("decade") },
+    annotations: READ_ONLY_TOOL,
+  },
   async ({ granularity }) => {
     const buckets = new Map<string, Sighting[]>();
     for (const s of ALL) {
@@ -269,4 +324,4 @@ server.tool(
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error("uap-pulse MCP server v0.2 running (stdio) — 238 official UAP records (US PURSUE + 12 nations), 9 tools.");
+console.error(`uap-pulse MCP server v${VERSION} running (stdio) — ${ALL.length} official UAP records (US PURSUE Releases 1–4 + 12 nations), 9 tools.`);
