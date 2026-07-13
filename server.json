@@ -1,7 +1,7 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.davidmosiah/uap-pulse",
-  "description": "Search and map all four Pentagon PURSUE UAP/UFO releases plus curated official archives from 12 nations.",
+  "description": "Search and map the Pentagon UAP/UFO releases plus curated official archives from 12 nations.",
   "version": "0.4.0",
   "repository": {
     "url": "https://github.com/davidmosiah/uap-pulse",
