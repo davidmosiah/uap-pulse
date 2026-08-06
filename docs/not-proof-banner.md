@@ -1,3 +1,4 @@
-# Not a proof engine
+# Cultural archive / not-proof
 
-Cultural/folklore/astrology archive only. Not scientific proof or medical advice.
+This package is a cultural archive surface — **not** scientific proof of UAP.
+Banner and README must keep that disclaimer durable.
