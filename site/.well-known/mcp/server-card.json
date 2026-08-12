@@ -2,30 +2,62 @@
   "$schema": "https://modelcontextprotocol.io/schema/server-card/draft",
   "serverInfo": {
     "name": "uap-pulse",
-    "version": "0.4.0",
-    "title": "UAP Pulse — declassified Pentagon UAP files",
-    "description": "Search and map 350 official-government UAP/UFO records: PURSUE Releases 1–4 plus curated archives from 12 nations. No auth.",
+    "version": "0.4.1",
+    "title": "UAP Pulse \u2014 declassified Pentagon UAP files",
+    "description": "Search and map 350 official-government UAP/UFO records: PURSUE Releases 1\u20134 plus curated archives from 12 nations. No auth.",
     "websiteUrl": "https://uap-pulse.vercel.app",
     "repositoryUrl": "https://github.com/davidmosiah/uap-pulse"
   },
   "transport": {
     "type": "stdio",
     "command": "npx",
-    "args": ["-y", "uap-pulse"]
+    "args": [
+      "-y",
+      "uap-pulse"
+    ]
   },
   "capabilities": {
-    "tools": { "listChanged": false }
+    "tools": {
+      "listChanged": false
+    }
   },
   "tools": [
-    { "name": "search_sightings", "description": "Search records by PURSUE release, free text, agency, file type, year range, or location." },
-    { "name": "search_nearby", "description": "Incidents within a radius (km) of a lat/lng, by distance." },
-    { "name": "get_sighting", "description": "Full record for one file id, with the war.gov source link." },
-    { "name": "full_text_search", "description": "Relevance-ranked substring search across all records." },
-    { "name": "notable_cases", "description": "Curated, historically significant cases." },
-    { "name": "hotspots", "description": "Locations ranked by record count." },
-    { "name": "stats", "description": "Totals and breakdowns by release, agency, type, era." },
-    { "name": "timeline", "description": "Record counts per decade or year." },
-    { "name": "timeline_data", "description": "Per-period records with coordinates for animation." }
+    {
+      "name": "search_sightings",
+      "description": "Search records by PURSUE release, free text, agency, file type, year range, or location (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "search_nearby",
+      "description": "Incidents within a radius (km) of a lat/lng, by distance (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "get_sighting",
+      "description": "Full record for one file id, with the war.gov source link (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "full_text_search",
+      "description": "Relevance-ranked substring search across all records (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "notable_cases",
+      "description": "Curated, historically significant cases (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "hotspots",
+      "description": "Locations ranked by record count (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "stats",
+      "description": "Totals and breakdowns by release, agency, type, era (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "timeline",
+      "description": "Record counts per decade or year (PURSUE Releases 1-4)."
+    },
+    {
+      "name": "timeline_data",
+      "description": "Per-period records with coordinates for animation (PURSUE Releases 1-4)."
+    }
   ],
   "license": "MIT",
   "dataLicense": "U.S. PURSUE records: public domain (17 U.S.C. 105); international source rights may vary"

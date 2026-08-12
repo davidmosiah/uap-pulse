@@ -1,8 +1,8 @@
 {
   "name": "uap-pulse",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "mcpName": "io.github.davidmosiah/uap-pulse",
-  "description": "MCP server for 350 official-government UAP/UFO records: Pentagon PURSUE Releases 1–4 plus curated archives from 12 nations.",
+  "description": "MCP server for 350 official-government UAP/UFO records: Pentagon PURSUE Releases 1-4 plus curated archives from 12 nations.",
   "type": "module",
   "bin": {
     "uap-pulse": "dist/index.js"
@@ -57,6 +57,9 @@
     "@types/node": "^20.14.0"
   },
   "overrides": {
-    "@hono/node-server": "2.0.12"
+    "@hono/node-server": "2.1.0",
+    "hono": "4.13.1",
+    "fast-uri": "3.1.5",
+    "ip-address": "10.4.0"
   }
 }
