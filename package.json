@@ -1,6 +1,6 @@
 {
   "name": "uap-pulse",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "mcpName": "io.github.davidmosiah/uap-pulse",
   "description": "MCP server for 350 official-government UAP/UFO records: Pentagon PURSUE Releases 1-4 plus curated archives from 12 nations.",
   "type": "module",

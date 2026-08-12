@@ -1,7 +1,7 @@
 {
   "name": "uap-pulse",
   "description": "MCP server over 350 official-government UAP/UFO records: all four U.S. Pentagon PURSUE Releases 1-4 / PURSUE releases plus curated archives from 12 nations, with an interactive 3D map.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://uap-pulse.vercel.app",
   "repository": "https://github.com/davidmosiah/uap-pulse",
   "license": "MIT",

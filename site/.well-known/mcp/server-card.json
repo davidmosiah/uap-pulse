@@ -2,7 +2,7 @@
   "$schema": "https://modelcontextprotocol.io/schema/server-card/draft",
   "serverInfo": {
     "name": "uap-pulse",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "title": "UAP Pulse \u2014 declassified Pentagon UAP files",
     "description": "Search and map 350 official-government UAP/UFO records: PURSUE Releases 1\u20134 plus curated archives from 12 nations. No auth.",
     "websiteUrl": "https://uap-pulse.vercel.app",

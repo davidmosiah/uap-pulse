@@ -26,6 +26,18 @@ Your agent can search all 350 records by release, location, agency, era, or type
 
 That's it — no API key, no auth, no cost. The data ships with the package.
 
+## HTTP (v2 stateless)
+
+Default is **stdio**. Optional Streamable HTTP — no session id, JSON responses, loopback only:
+
+```bash
+npx -y uap-pulse --http
+# GET  http://127.0.0.1:3000/health
+# POST http://127.0.0.1:3000/mcp   (sessionless)
+```
+
+Env: `UAP_PULSE_HOST`, `UAP_PULSE_PORT`, `UAP_PULSE_TRANSPORT=http`.
+
 ### Tools
 
 | Tool | What it does |

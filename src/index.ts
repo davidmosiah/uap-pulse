@@ -7,10 +7,12 @@
  * No scraped third-party databases.
  */
 import { readFileSync } from "node:fs";
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import { listenHttpV2 } from "./http-v2.js";
 
 type Sighting = {
   id: string;
@@ -37,7 +39,7 @@ const DB = JSON.parse(readFileSync(dataPath, "utf8")) as {
 };
 const ALL = DB.sightings;
 const MAX_RESULTS = ALL.length;
-const VERSION = "0.4.0";
+const VERSION = "0.4.2";
 const RELEASE_LABELS = {
   1: "Release 1 (2026-05-08)",
   2: "Release 2 (2026-05-22)",
@@ -79,6 +81,7 @@ function brief(s: Sighting) {
 
 const json = (data: unknown) => ({ content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }] });
 
+export function createServer() {
 const server = new McpServer({ name: "uap-pulse", version: VERSION });
 
 server.registerTool(
@@ -322,6 +325,36 @@ server.registerTool(
   }
 );
 
-const transport = new StdioServerTransport();
-await server.connect(transport);
-console.error(`uap-pulse MCP server v${VERSION} running (stdio) — ${ALL.length} official UAP records (US PURSUE Releases 1–4 + 12 nations), 9 tools.`);
+  return server;
+}
+
+async function runStdio(): Promise<void> {
+  const server = createServer();
+  await server.connect(new StdioServerTransport());
+  console.error(`uap-pulse MCP server v${VERSION} running (stdio) — ${ALL.length} official UAP records (US PURSUE Releases 1–4 + 12 nations), 9 tools.`);
+}
+
+async function runHttp(): Promise<void> {
+  const host = process.env.UAP_PULSE_HOST ?? "127.0.0.1";
+  const port = Number(process.env.UAP_PULSE_PORT ?? 3000);
+  const { url } = await listenHttpV2({
+    name: "uap-pulse",
+    version: VERSION,
+    createServer,
+    host,
+    port
+  });
+  console.error(`uap-pulse MCP server v${VERSION} running (http v2 stateless) — ${url}/mcp — ${ALL.length} official UAP records.`);
+}
+
+const isEntrypoint =
+  Boolean(process.argv[1]) && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (isEntrypoint) {
+  const args = new Set(process.argv.slice(2));
+  const transport = process.env.UAP_PULSE_TRANSPORT ?? (args.has("--http") ? "http" : "stdio");
+  if (transport === "http") {
+    await runHttp();
+  } else {
+    await runStdio();
+  }
+}
